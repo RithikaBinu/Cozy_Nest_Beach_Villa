@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATARA Retreat | Majestic Serenity</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            ivory: '#FAF9F6',
+                            slateBlue: '#6B7A8F', // Sophisticated slate-blue
+                            sapphire: '#0F2041',  // Deep sapphire blue
+                            gold: '#C5A880',      // Royal Gold
+                            goldHover: '#B3956D'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF9F6; /* Ivory */
+            color: #0F2041; /* Sapphire for text */
+        }
+
+        /* Navbar transitions */
+        .nav-scrolled {
+            background-color: rgba(250, 249, 246, 0.98);
+            box-shadow: 0 4px 20px -2px rgba(15, 32, 65, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .nav-scrolled .nav-link, .nav-scrolled .logo-text {
+            color: #0F2041 !important;
+        }
+        .nav-transparent .nav-link, .nav-transparent .logo-text {
+            color: #ffffff;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Gallery Overlay Transitions */
+        #gallery-modal {
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #gallery-modal.hidden-modal {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar for Modal */
+        #gallery-modal::-webkit-scrollbar {
+            width: 8px;
+        }
+        #gallery-modal::-webkit-scrollbar-track {
+            background: #0F2041;
+        }
+        #gallery-modal::-webkit-scrollbar-thumb {
+            background: #C5A880;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-brand-sapphire selection:bg-brand-gold selection:text-white">
+
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-500 nav-transparent py-6 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#" class="font-serif text-2xl tracking-widest logo-text transition-colors duration-300 flex items-center gap-2">
+            <i class="fas fa-crown text-brand-gold text-lg"></i>
+            MATARA <span class="text-brand-gold italic">Retreat</span>
+        </a>
+
+        <div class="hidden md:flex space-x-10 items-center">
+            <a href="#about" class="nav-link text-xs uppercase tracking-[0.2em] hover:text-brand-gold transition-colors duration-300 font-medium">The Experience</a>
+            <a href="#gallery" class="nav-link text-xs uppercase tracking-[0.2em] hover:text-brand-gold transition-colors duration-300 font-medium">Gallery</a>
+            <a href="#reserve" class="bg-brand-gold text-white px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-brand-goldHover transition-colors duration-300 font-medium shadow-lg shadow-brand-gold/20">Reserve</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-2xl nav-link focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-ivory shadow-2xl flex-col py-6 px-6 gap-6 text-center md:hidden border-t border-gray-200">
+        <a href="#about" class="text-brand-sapphire text-sm uppercase tracking-widest">The Experience</a>
+        <a href="#gallery" class="text-brand-sapphire text-sm uppercase tracking-widest">Gallery</a>
+        <a href="#reserve" class="text-brand-gold text-sm uppercase tracking-widest font-semibold">Reserve</a>
+    </div>
+</nav>
+
+<header id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-brand-sapphire">
+    <!-- HTML5 Video Background (Resort Pool Placeholder) -->
+    <video autoplay loop muted playsinline class="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover transform scale-105">
+        <!-- Using a high quality placeholder resort/pool video -->
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-swimming-pool-in-a-luxury-resort-997-large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Sophisticated Slate-Blue Overlay -->
+    <div class="absolute inset-0 z-10 bg-brand-slateBlue/60 mix-blend-multiply"></div>
+    <div class="absolute inset-0 z-10 bg-gradient-to-b from-brand-sapphire/40 via-transparent to-brand-sapphire/90"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-20 text-center px-4 max-w-5xl mx-auto mt-20">
+        <p class="reveal text-brand-gold text-sm md:text-base uppercase tracking-[0.4em] mb-6 font-medium">
+            <span class="inline-block w-12 h-[1px] bg-brand-gold align-middle mr-4"></span>
+            Supreme Luxury
+            <span class="inline-block w-12 h-[1px] bg-brand-gold align-middle ml-4"></span>
+        </p>
+        <h1 class="reveal delay-100 font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight drop-shadow-2xl">
+            Majestic Serenity <br/>
+            <span class="italic text-brand-gold font-light">in Matara</span>
+        </h1>
+        <p class="reveal delay-200 text-white/80 font-light text-lg mb-12 max-w-2xl mx-auto">Experience unparalleled elegance on the pristine southern coast of Sri Lanka.</p>
+        <a href="#about" class="reveal delay-300 inline-block border border-brand-gold bg-brand-sapphire/30 backdrop-blur-md text-white px-10 py-4 uppercase tracking-[0.2em] text-sm hover:bg-brand-gold hover:text-white transition-all duration-500 hover:shadow-lg hover:shadow-brand-gold/30">
+            Discover your sanctuary
+        </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-brand-gold/80 hover:text-brand-gold transition-colors animate-bounce z-20">
+        <span class="text-xs tracking-widest uppercase block mb-2 opacity-70 text-center">Scroll</span>
+        <i class="fas fa-chevron-down text-xl text-center w-full"></i>
+    </a>
+</header>
+
+<section id="about" class="py-32 px-6 md:px-12 max-w-7xl mx-auto bg-brand-ivory relative">
+    <!-- Decorative element -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 rounded-full blur-3xl -z-10"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal">
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 text-brand-sapphire leading-tight">An Oasis of <br><span class="italic text-brand-gold">Tranquility</span></h2>
+            <div class="w-20 h-[2px] bg-brand-gold mb-10"></div>
+            <p class="text-brand-slateBlue mb-6 leading-relaxed font-light text-lg">
+                Step into a world where modern luxury meets tropical splendor. The Matara Retreat offers an exclusive, meticulously curated environment designed to soothe the soul and elevate your senses.
+            </p>
+            <p class="text-brand-slateBlue mb-10 leading-relaxed font-light text-lg">
+                Every detail of our villa has been crafted to provide a supreme 5-star experience, blending elegant architecture with the majestic serenity of Sri Lanka's southern coast.
+            </p>
+
+            <div class="grid grid-cols-2 gap-8 mb-10 border-t border-b border-brand-gold/20 py-8">
+                <div>
+                    <h4 class="font-serif text-2xl text-brand-sapphire mb-2">★ 5.0</h4>
+                    <p class="text-xs uppercase tracking-widest text-brand-slateBlue">Guest Rating</p>
+                </div>
+                <div>
+                    <h4 class="font-serif text-2xl text-brand-sapphire mb-2">Prime</h4>
+                    <p class="text-xs uppercase tracking-widest text-brand-slateBlue">Location</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative reveal delay-200">
+            <div class="absolute inset-0 bg-brand-gold translate-x-4 translate-y-4 -z-10"></div>
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1000" alt="Villa Interior" class="w-full h-[600px] object-cover shadow-2xl">
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="py-32 px-6 md:px-12 bg-brand-sapphire text-white relative">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <p class="text-brand-gold text-xs uppercase tracking-[0.3em] mb-4">Visual Journey</p>
+            <h2 class="font-serif text-4xl md:text-5xl mb-6">The Gallery</h2>
+            <div class="w-16 h-[2px] bg-brand-gold mx-auto mb-10"></div>
+        </div>
+
+        <!-- CSS Grid Gallery (Preview) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 reveal delay-100">
+            <div class="h-64 md:h-80 overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1613490908578-8fc8d085cd05?auto=format&fit=crop&q=80&w=800" alt="Gallery 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="h-64 md:h-80 overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800" alt="Gallery 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="h-64 md:h-80 overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800" alt="Gallery 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+        </div>
+
+        <div class="text-center reveal delay-200">
+            <button onclick="openGallery()" class="inline-flex items-center gap-3 border border-brand-gold text-brand-gold px-8 py-3 uppercase tracking-widest text-sm hover:bg-brand-gold hover:text-brand-sapphire transition-all duration-300">
+                View More Photos <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<div id="gallery-modal" class="fixed inset-0 z-[100] bg-brand-sapphire/95 backdrop-blur-xl hidden-modal overflow-y-auto">
+    <div class="min-h-screen p-6 md:p-12">
+        <div class="flex justify-between items-center mb-12 sticky top-0 z-10 bg-brand-sapphire/80 backdrop-blur-md p-4 -mx-4">
+            <h3 class="font-serif text-2xl text-brand-gold">Immersive Gallery</h3>
+            <button onclick="closeGallery()" class="text-white hover:text-brand-gold transition-colors text-3xl focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Expanded Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto pb-20">
+            <img src="https://images.unsplash.com/photo-1613490908578-8fc8d085cd05?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+            <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&q=80&w=1000" class="w-full h-72 object-cover rounded-sm shadow-xl">
+        </div>
+    </div>
+</div>
+
+<section id="reserve" class="py-32 px-6 md:px-12 bg-brand-ivory relative border-t border-brand-gold/20">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+            <!-- Location Info -->
+            <div class="reveal">
+                <p class="text-brand-gold text-xs uppercase tracking-[0.3em] mb-4">The Destination</p>
+                <h2 class="font-serif text-4xl md:text-5xl mb-6 text-brand-sapphire">Your Sanctuary <br><span class="italic">Awaits</span></h2>
+                <div class="w-16 h-[2px] bg-brand-gold mb-8"></div>
+
+                <p class="text-brand-slateBlue mb-8 leading-relaxed font-light">
+                    Located perfectly in Matara, our villa offers seamless access to golden beaches while remaining a secluded, private paradise.
+                </p>
+
+                <div class="flex items-center gap-4 text-brand-sapphire mb-10 p-6 bg-white shadow-lg border-l-4 border-brand-gold">
+                    <i class="fas fa-map-marker-alt text-brand-gold text-2xl"></i>
+                    <div>
+                        <p class="font-medium text-lg font-serif">Matara, Sri Lanka</p>
+                        <p class="text-sm text-brand-slateBlue">Southern Province</p>
+                    </div>
+                </div>
+
+                <a href="https://share.google/SozbNYG1Ga8vWhXAX" target="_blank" class="inline-flex items-center gap-3 bg-brand-sapphire text-white px-8 py-4 uppercase tracking-widest text-sm hover:bg-brand-slateBlue transition-colors duration-300 shadow-xl">
+                    Open in Google Maps <i class="fas fa-external-link-alt text-brand-gold"></i>
+                </a>
+            </div>
+
+            <!-- Airbnb Embed -->
+            <div class="reveal delay-200">
+                <div class="bg-white p-8 md:p-12 shadow-2xl relative">
+                    <!-- Decorative corner pieces -->
+                    <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-brand-gold m-4"></div>
+                    <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-brand-gold m-4"></div>
+
+                    <h3 class="font-serif text-2xl md:text-3xl text-center text-brand-sapphire mb-8">Reserve Your Stay</h3>
+
+                    <!-- EXACT AIRBNB EMBED PROVIDED BY USER -->
+                    <div class="airbnb-embed-frame relative z-10" data-id="1584843178819411779" data-view="home" data-hide-price="true" style="width:100%;max-width:450px;height:300px;margin:auto">
+                        <a href="https://www.airbnb.com/rooms/1584843178819411779?guests=1&amp;adults=1&amp;s=66&amp;source=embed_widget">View On Airbnb</a>
+                        <a href="https://www.airbnb.com/rooms/1584843178819411779?guests=1&amp;adults=1&amp;s=66&amp;source=embed_widget" rel="nofollow">Home in Matara · ★5.0 · 1 bedroom · 1 bed · 1 bath</a>
+                        <script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script>
+                    </div>
+
+                    <p class="text-center text-brand-slateBlue text-xs mt-6 uppercase tracking-widest font-light">Secure booking via Airbnb</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer class="bg-brand-sapphire py-16 px-6 text-center text-white/50 border-t border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col items-center">
+        <div class="font-serif text-2xl tracking-widest text-white mb-6 flex items-center gap-2">
+            <i class="fas fa-crown text-brand-gold text-xl"></i>
+            MATARA <span class="text-brand-gold italic">Retreat</span>
+        </div>
+        <div class="flex space-x-6 mb-8 text-white">
+            <a href="#" class="hover:text-brand-gold transition-colors text-xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-brand-gold transition-colors text-xl"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-brand-gold transition-colors text-xl"><i class="fab fa-tripadvisor"></i></a>
+        </div>
+        <p class="text-sm font-light tracking-wider">
+            &copy; <span id="year"></span> The Matara Retreat. All rights reserved. <br>
+            <span class="text-xs opacity-70 mt-2 block">Supreme Luxury • Southern Coast • Sri Lanka</span>
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Set dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar styling on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.remove('nav-transparent', 'py-6');
+            navbar.classList.add('nav-scrolled', 'py-4');
+        } else {
+            navbar.classList.add('nav-transparent', 'py-6');
+            navbar.classList.remove('nav-scrolled', 'py-4');
+        }
+    });
+
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+
+        if(window.scrollY <= 50) {
+            navbar.classList.toggle('bg-brand-ivory');
+            const links = navbar.querySelectorAll('.nav-link, .logo-text');
+            links.forEach(link => link.classList.toggle('text-brand-sapphire'));
+            mobileMenuBtn.querySelector('i').classList.toggle('text-brand-sapphire');
+        }
+    });
+
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            if(window.scrollY <= 50) {
+                navbar.classList.remove('bg-brand-ivory');
+                mobileMenuBtn.querySelector('i').classList.remove('text-brand-sapphire');
+            }
+        });
+    });
+
+    // Scroll Reveal Animation Observer
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        });
+    }, revealOptions);
+
+    revealElements.forEach(el => revealOnScroll.observe(el));
+
+    // Gallery Modal Logic
+    const galleryModal = document.getElementById('gallery-modal');
+    function openGallery() {
+        galleryModal.classList.remove('hidden-modal');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+    function closeGallery() {
+        galleryModal.classList.add('hidden-modal');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+        if(e.key === "Escape" && !galleryModal.classList.contains('hidden-modal')) {
+            closeGallery();
+        }
+    });
+</script>
+</body>
+</html>
